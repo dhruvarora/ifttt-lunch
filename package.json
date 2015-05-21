@@ -1,0 +1,17 @@
+{
+  "name": "ifttt-lunch",
+  "version": "1.0.0",
+  "description": "Automatically generates 1+1 pairings for a given week",
+  "main": "index.js",
+  "scripts": {
+    "test": "ifttt-lunch"
+  },
+  "keywords": [
+    "ifttt-lunch",
+    "intern",
+    "npm",
+    "cli"
+  ],
+  "author": "Dhruv Arora",
+  "license": "ISC"
+}
