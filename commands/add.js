@@ -1,5 +1,5 @@
 var inquirer = require('inquirer');
-var firebase = require('./firebase.js');
+var firebase = require('../utils/firebase.js');
 
 var init = function() {
   inquirer.prompt([

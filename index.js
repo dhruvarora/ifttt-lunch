@@ -5,10 +5,10 @@ var program = require('commander');
 var chalk = require('chalk');
 
 /* Local files for better modulation */
-var add = require('./add.js');
-var generate = require('./generate.js');
-var view = require('./view.js');
-var tree = require('./tree.js');
+var add = require('./commands/add.js');
+var generate = require('./commands/generate.js');
+var view = require('./commands/view.js');
+var tree = require('./commands/tree.js');
 
 program
   .version(require('./package.json').version);
@@ -34,3 +34,9 @@ program
   .action(tree);
 
 program.parse(process.argv);
+
+if (!program.args.length) {
+  console.log(chalk.green('Welcome to IFTTT'));
+  program.help();
+  process.exit();  
+}
