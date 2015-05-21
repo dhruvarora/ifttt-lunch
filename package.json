@@ -13,5 +13,9 @@
     "cli"
   ],
   "author": "Dhruv Arora",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^1.0.0",
+    "commander": "^2.8.1"
+  }
 }
