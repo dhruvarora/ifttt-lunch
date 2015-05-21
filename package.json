@@ -20,6 +20,7 @@
   "dependencies": {
     "chalk": "^1.0.0",
     "commander": "^2.8.1",
+    "firebase": "^2.2.5",
     "inquirer": "^0.8.4"
   }
 }
