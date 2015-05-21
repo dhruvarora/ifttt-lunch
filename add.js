@@ -1,4 +1,5 @@
 var inquirer = require('inquirer');
+var firebase = require('./firebase.js');
 
 var init = function() {
   inquirer.prompt([
@@ -8,7 +9,8 @@ var init = function() {
       message: "What would you like to add?",
       choices: [
         "Add a member to a team",
-        "Add a team to the organization"
+        "Add a team to the organization",
+        "Exit"
       ]
     },
   ], function(answers) {
@@ -19,7 +21,9 @@ var init = function() {
 
 var resolveType = function(input) {
   if (input === 'Add a member to a team') {
-    addMember();
+    addMemberSelectTeam();
+  } else if (input === 'Exit') {
+    process.exit();
   } else {
     addTeam();
   }
@@ -33,8 +37,40 @@ var addTeam = function() {
       message: "Enter the name of the team you would like to add"
     }
   ], function(answers) {
-    console.log("You've added team " + answers.teamName);
+    firebase.addTeam(answers.teamName);
   });
+};
+
+var addMemberSelectTeam = function() {
+  firebase.getTeams(function(teamList) {
+    inquirer.prompt([
+      {
+        type: "list",
+        name: "teamSelect",
+        message: "Select the team you would like to add the person to",
+        choices: teamList
+      },
+    ], function(answers) {
+      addMemberInput(answers.teamSelect);
+    }); 
+  });
+};
+
+var addMemberInput = function(teamSelect) {
+  inquirer.prompt([
+    {
+      type: "input",
+      name: "employeeName",
+      message: "Enter the name of the team member"
+    },
+    {
+      type: "input",
+      name: "employeeEmail",
+      message: "Enter the email of the team member"
+    }, 
+  ], function(answers) {
+    firebase.addMember(teamSelect, answers);
+  }); 
 };
 
 module.exports = init;
