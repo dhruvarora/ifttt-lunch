@@ -41,7 +41,9 @@ var addEmployee = function(teamName, employee) {
   });
 };
 
-
+/* Takes in a teamName and employee and updates the employee at url
+ * url/employees/employeeName
+ */
 var updateEmployee = function(teamName, employee) {
   employeeRef = employeeFirebase.child(employee.employeeName);
   teamRef = employeeRef.child(teamName);
@@ -57,6 +59,7 @@ var updateEmployee = function(teamName, employee) {
   });
 };
 
+/* Takes a callback that processes on an array of all possible teams */
 var getTeams = function(callback) {
   teams.orderByKey().once("value", function(snapshot) {
     var teams = Object.keys(snapshot.val());
@@ -66,6 +69,18 @@ var getTeams = function(callback) {
   });
 };
 
+
+var getEmployees = function(callback) {
+  employeeFirebase.orderByKey().once("value", function(snapshot) {
+    var employees = Object.keys(snapshot.val());
+    callback(employees);
+  }, function (errorObject) {
+    console.log("The read failed: " + errorObject.code);
+  });
+};
+
+/* Takes a callback that processes on the 
+ * JSON of the entire organization */
 var getOrganization = function(callback) {
   teams.orderByKey().once("value", function(snapshot) {
     var organization = snapshot.val();
@@ -75,7 +90,34 @@ var getOrganization = function(callback) {
   });
 };
 
+/* Takes a callback that processes on all the
+ * teams that a certain employee belongs to */
+var getEmployeeTeams = function(employee, callback) {
+  var currEmployee = employeeFirebase.child(employee);
+  currEmployee.orderByKey().once("value", function(snapshot) {
+    var employeeTeams = Object.keys(snapshot.val());
+    callback(employeeTeams);
+  }, function (errorObject) {
+    console.log("The read failed: " + errorObject.code);
+  });
+};
+
+/* Takes a callback that processes on all the
+ * employees of a particular team */
+var getTeamsEmployees = function(teamName, callback) {
+  var currTeam = teams.child(teamName);
+  currTeam.orderByKey().once("value", function(snapshot) {
+    var employees= Object.keys(snapshot.val());
+    callback(employees);
+  }, function (errorObject) {
+    console.log("The read failed: " + errorObject.code);
+  });
+};
+
 exports.addTeam = addTeam;
 exports.addEmployee = addEmployee;
 exports.getTeams = getTeams;
 exports.getOrg = getOrganization;
+exports.getEmployeeTeams = getEmployeeTeams;
+exports.getTeamsEmployees = getTeamsEmployees;
+exports.getEmployees = getEmployees;
