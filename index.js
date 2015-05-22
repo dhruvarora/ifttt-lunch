@@ -36,7 +36,8 @@ program
 program.parse(process.argv);
 
 if (!program.args.length) {
-  console.log(chalk.green('Welcome to IFTTT'));
+  console.log(chalk.green('\n  Welcome to the IFTTT Lunch Pairer!'));
+  console.log(chalk.green('  ----------------------------------'));
   program.help();
   process.exit();  
 }
