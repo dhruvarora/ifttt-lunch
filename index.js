@@ -29,7 +29,7 @@ program
   .action(view);
 
 program
-  .command('tree')
+  .command('orgtree')
   .description('View the organization tree')
   .action(tree);
 

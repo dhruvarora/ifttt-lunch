@@ -42,6 +42,16 @@ var getTeams = function(callback) {
   });
 };
 
+var getOrganization = function(callback) {
+  teams.orderByKey().once("value", function(snapshot) {
+    var organization = snapshot.val();
+    callback(organization);
+  }, function (errorObject) {
+    console.log("The read failed: " + errorObject.code);
+  });
+};
+
 exports.addTeam = addTeam;
 exports.addMember = addMember;
 exports.getTeams = getTeams;
+exports.getOrg = getOrganization;
