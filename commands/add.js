@@ -8,7 +8,7 @@ var init = function() {
       name: "add",
       message: "What would you like to add?",
       choices: [
-        "Add a member to a team",
+        "Add a employee to a team",
         "Add a team to the organization",
         "Exit"
       ]
@@ -20,8 +20,8 @@ var init = function() {
 
 
 var resolveType = function(input) {
-  if (input === 'Add a member to a team') {
-    addMemberSelectTeam();
+  if (input === 'Add a employee to a team') {
+    addEmployeeSelectTeam();
   } else if (input === 'Exit') {
     process.exit();
   } else {
@@ -41,35 +41,35 @@ var addTeam = function() {
   });
 };
 
-var addMemberSelectTeam = function() {
+var addEmployeeSelectTeam = function() {
   firebase.getTeams(function(teamList) {
     inquirer.prompt([
       {
         type: "list",
         name: "teamSelect",
-        message: "Select the team you would like to add the person to",
+        message: "Select the team you would like to add the employee to",
         choices: teamList
       },
     ], function(answers) {
-      addMemberInput(answers.teamSelect);
+      addEmployeeInput(answers.teamSelect);
     }); 
   });
 };
 
-var addMemberInput = function(teamSelect) {
+var addEmployeeInput = function(teamSelect) {
   inquirer.prompt([
     {
       type: "input",
       name: "employeeName",
-      message: "Enter the name of the team member"
+      message: "Enter the name of the team employee"
     },
     {
       type: "input",
       name: "employeeEmail",
-      message: "Enter the email of the team member"
+      message: "Enter the email of the team employee"
     }, 
   ], function(answers) {
-    firebase.addMember(teamSelect, answers);
+    firebase.addEmployee(teamSelect, answers);
   }); 
 };
 
