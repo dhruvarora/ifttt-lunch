@@ -69,7 +69,7 @@ var getTeams = function(callback) {
   });
 };
 
-
+/* Takes a callback and process on an array of all employees in the org. */
 var getEmployees = function(callback) {
   employeeFirebase.orderByKey().once("value", function(snapshot) {
     var employees = Object.keys(snapshot.val());
